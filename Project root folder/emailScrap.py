@@ -5,21 +5,19 @@ Human_regex = r'\.'
 fo = open("websiteData.txt", encoding="utf8")
 data = fo.read()
 lst = re.findall(Email_regex,data)
-uniqemail = {}
-temp = []
-count_email = 0
+email_dict = {}
 for i in lst:
-    uniqemail[i] = {}
-    uniqemail[i]['Occurance'] = lst.count(i)
+    email_dict[i] = {}
+    email_dict[i]['Occurance'] = lst.count(i)
     name = i.split("@")[0]
     if re.findall(Human_regex,name) or len(name) > 8:
-        uniqemail[i]['EmailType'] = "Human"
+        email_dict[i]['EmailType'] = "Human"
     else:
-        uniqemail[i]['EmailType'] = "Non-Human"
+        email_dict[i]['EmailType'] = "Non-Human"
     
-# print(uniqemail)
-json_data = json.dumps(uniqemail,sort_keys=False, indent=4)
-print(json_data)
+# print(email_dict)
+json_data = json.dumps(email_dict,sort_keys=False, indent=4)
+# print(json_data)
 fo.close()
 fw=open('result.json','w')
 fw.write(json_data)
